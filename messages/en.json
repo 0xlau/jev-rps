@@ -1,0 +1,315 @@
+{
+  "Metadata": {
+    "title": "Jev RPS · Rock, Paper, Scissors",
+    "description": "AI moves first, then you play. Every round is verifiable.",
+    "shortDescription": "AI moves first, then you play.",
+    "applicationName": "Jev RPS",
+    "siteName": "Jev RPS",
+    "ogAlt": "Jev RPS"
+  },
+  "Brand": {
+    "name": "Jev RPS",
+    "tagline": "ROCK. PAPER. RIVAL.",
+    "homeAria": "Jev RPS home"
+  },
+  "Nav": {
+    "primary": "Primary",
+    "history": "My matches",
+    "github": "GitHub",
+    "connect": "Connect Jev",
+    "keyReady": "Key saved",
+    "localeSwitch": "Language"
+  },
+  "Locale": {
+    "en": "English",
+    "zh": "中文"
+  },
+  "Skip": {
+    "play": "Skip to match"
+  },
+  "Intro": {
+    "titleA": "Read the hand.",
+    "titleB": "Read the mind.",
+    "stampAria": "Jev locks in first, no take-backs",
+    "stampTop": "MOVES FIRST",
+    "stampBottom": "NO TAKE-BACKS"
+  },
+  "Moves": {
+    "scissors": "Scissors",
+    "rock": "Rock",
+    "paper": "Paper"
+  },
+  "MovesBeats": {
+    "scissors": "beats paper",
+    "rock": "beats scissors",
+    "paper": "beats rock"
+  },
+  "Results": {
+    "human": "You win",
+    "jev": "Jev wins",
+    "draw": "Same wavelength — draw"
+  },
+  "ResultsShort": {
+    "human": "Win",
+    "jev": "Loss",
+    "draw": "Draw"
+  },
+  "Onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "start": "Fight",
+    "progress": "Step {current} of {total}",
+    "slides": {
+      "0": {
+        "eyebrow": "01 · LOCK",
+        "title": "It throws first.",
+        "body": "Jev seals its move before you play. Peek if you must — or hold your nerve.",
+        "visual": "I move first."
+      },
+      "1": {
+        "eyebrow": "02 · READ",
+        "title": "Don't get read.",
+        "body": "It studies your patterns and shifts gears with your form.",
+        "visual": "Watch · Predict · Adapt"
+      },
+      "2": {
+        "eyebrow": "03 · FIGHT",
+        "title": "Now counter.",
+        "body": "Rock, paper, scissors. Let's go.",
+        "visual": "READY?"
+      }
+    }
+  },
+  "Round": {
+    "label": "ROUND",
+    "steps": {
+      "jev": "Jev throws",
+      "you": "You pick",
+      "reveal": "Reveal"
+    },
+    "progress": "Match progress",
+    "previous": "Last round",
+    "youThrew": "You threw {move}",
+    "jevThrew": "Jev threw {move}"
+  },
+  "Court": {
+    "label": "Rock paper scissors match",
+    "you": "You",
+    "youBadge": "P1",
+    "youFlair": "gut player",
+    "jev": "Jev",
+    "jevBadge": "AI",
+    "jevFlair": "studying you",
+    "waiting": "Waiting on you",
+    "versus": "VS"
+  },
+  "Cover": {
+    "locked": "LOCKED IN",
+    "thinking": "THINKING…",
+    "ready": "READY WHEN YOU ARE",
+    "lockedLine": "I'm locked in.",
+    "thinkingLine": "Let me guess…",
+    "readyLine": "Care for a round?",
+    "peek": "Sneak a peek",
+    "peeking": "Lifting the lid…",
+    "peekAgain": "Peek again"
+  },
+  "Status": {
+    "preparing": "Jev is guessing your throw…",
+    "resolving": "Move sealed, revealing…",
+    "revealing": "Opening Jev's card…",
+    "lockedRetry": "Your throw is sealed — try settle again",
+    "peekedGo": "Lid's off — your move",
+    "yourTurn": "It's locked. You?",
+    "firstRound": "First throw — Jev goes first.",
+    "analyzing": "Reading your habits…",
+    "roundDetail": "You threw {player}, Jev threw {move}",
+    "peekedCounted": "Peeked · counted in full record",
+    "usedHistory": "Used your history as context",
+    "lockThenPlay": "Locked in first, then you play"
+  },
+  "Main": {
+    "preparing": "Jev is throwing…",
+    "resolving": "Revealing…",
+    "retryResolve": "Retry settle",
+    "newSeries": "Start a new series",
+    "again": "One more",
+    "start": "Let Jev throw first",
+    "connect": "Connect Jev to start"
+  },
+  "Hints": {
+    "capReached": "Old matches archive; Jev learns from scratch",
+    "again": "Give it another shot at reading you",
+    "needKey": "Paste your TypeSafe key to play",
+    "enter": "Enter ↵",
+    "yourTurn": "Your turn",
+    "shortcuts": "Keys <key>1</key> <key>2</key> <key>3</key> also throw"
+  },
+  "ErrorBanner": {
+    "title": "This step isn't done",
+    "fixKey": "Check or replace key"
+  },
+  "Behavior": {
+    "title": "Jev's read before last round",
+    "regularity": "Regularity",
+    "cunning": "Cunning",
+    "tilt": "Tilt",
+    "adaptation": "Adaptation",
+    "pending": "Watching",
+    "note": "Estimated from {blind} blind rounds before round {number}. Tilt is post-loss throw shift — not real emotion. No score without enough samples."
+  },
+  "Commitment": {
+    "sealed": "Move sealed",
+    "view": "View commitment",
+    "viewProof": "View proof",
+    "explain": "Hash saved before your throw; auto-checked on reveal.",
+    "usedContext": "Used {count} rounds · {model}",
+    "contextHash": "Context SHA-256: {hash}",
+    "passed": "This throw passed the commitment check",
+    "blurb": "Lock first, throw later. Every round is verifiable.",
+    "rules": "How it works"
+  },
+  "Scoreboard": {
+    "heading": "THE SCORECARD",
+    "title": "Who reads who?",
+    "subtitle": "This series",
+    "scope": "Win-rate scope",
+    "blind": "Blind only",
+    "all": "All rounds",
+    "you": "You",
+    "jev": "Jev",
+    "wins": "W",
+    "yourRate": "Your win rate",
+    "jevRate": "Jev's win rate",
+    "total": "Rounds",
+    "draws": "Draws",
+    "peeks": "Peeks",
+    "finePrint": "Win rate = wins ÷ rounds in scope (draws included).\nPeeked rounds stay in the record and Jev's memory.",
+    "recent": "Last five",
+    "noRounds": "Your story hasn't started.",
+    "recentAria": "Round {number}, {result}{peeked}, view proof",
+    "peekedSuffix": ", peeked"
+  },
+  "Rival": {
+    "aria": "Meet your rival",
+    "eyebrow": "MEET YOUR RIVAL",
+    "titleA": "It will",
+    "titleB": "remember you.",
+    "scribble": "I'M ONTO YOU ↗"
+  },
+  "Comfort": {
+    "aria": "Comfort settings",
+    "soundOn": "Sound on",
+    "soundOff": "Sound off",
+    "motionQuiet": "Motion reduced",
+    "motionReduce": "Reduce motion",
+    "motionSystem": "Following system reduced-motion setting"
+  },
+  "History": {
+    "eyebrow": "THE MATCHBOOK",
+    "title": "Every throw counts.",
+    "export": "Export record",
+    "newSeries": "New series",
+    "filter": "View record",
+    "optionCurrent": "Current series · {count} rounds",
+    "optionArchive": "Series {index} · {count} rounds · {date}",
+    "caption": "Each round's throws, result, peek flag, and verification proof",
+    "colNumber": "Round",
+    "colPlayer": "Your throw",
+    "colJev": "Jev's throw",
+    "colResult": "Result",
+    "colMode": "Mode",
+    "colProof": "Proof",
+    "peeked": "Peeked",
+    "blind": "Blind",
+    "view": "View",
+    "viewProofAria": "View proof for round {number}",
+    "emptyTitle": "No matches yet",
+    "emptyBody": "Round one starts with a little curiosity.",
+    "loadMore": "Show {count} more",
+    "note": "Local record · up to {max} rounds per series · a new series relearns"
+  },
+  "Fairness": {
+    "id": "fairness",
+    "question": "How do I know Jev can't take it back?",
+    "summary": "Fairness notes",
+    "p1Title": "Throws first, then you choose.",
+    "p1": "The server calls the real TypeSafe API and uses Jev's returned choice as-is. If the call fails, the round stops — no random stand-in. Your move this round is never sent to Jev.",
+    "p2Title": "Seal first, verify later.",
+    "p2": "On open, move, model, round number, history digest, and a random salt become a SHA-256 commitment. The browser saves that hash before buttons unlock. Reveal or settle only unseals the original choice — no second AI call. The browser recomputes the hash and records the round only if it matches.",
+    "p3Title": "Want to lift the lid? You can.",
+    "p3": "The lid is a real div. An unrevealed move stays inside the sealed blob and is never written into the page early. Clicking returns the original move, lifts the lid, and marks the round peeked. Peeked rounds still enter Jev's context.",
+    "p4Title": "This is a personal match log.",
+    "p4": "The commitment proves the sealed move didn't change; signed records deter casual edits. It is not an official TypeSafe attestation. Local storage has no cross-device sync and cannot stop developer-tool rollbacks, request replays, or peek-flag bypass, so this is not a competitive leaderboard. Clearing browser data wipes local history — export when you need it."
+  },
+  "Footer": {
+    "brand": "Jev RPS Club",
+    "bye": "See you next round."
+  },
+  "Settings": {
+    "eyebrow": "YOUR OPPONENT AWAITS",
+    "closeAria": "Close connection settings",
+    "titleA": "Bring a key,",
+    "titleB": "start throwing.",
+    "body": "Connect the real Jev and let it throw first.",
+    "label": "Your TypeSafe API Key",
+    "placeholder": "Paste API key here",
+    "hideKey": "Hide key",
+    "showKey": "Show key",
+    "help": "Key stays in this page's memory only and must be re-entered after refresh. Requests go through this site's server to TypeSafe and are never written into the match record.",
+    "save": "Save key",
+    "connectStart": "Connect and let Jev throw first",
+    "modelNote": "jev-latest · two calls per round: analyze habits → choose throw"
+  },
+  "Proof": {
+    "title": "Round {number} · throw proof",
+    "closeAria": "Close proof",
+    "intro": "Recompute SHA-256 of the revealed content and compare with the commitment saved at open.",
+    "modelMove": "Model / throw",
+    "preparedAt": "Opened at",
+    "commitment": "Opening commitment SHA-256",
+    "commitmentInput": "Full verification input (UTF-8)",
+    "context": "Context",
+    "contextValue": "All {count} prior rounds, including draws and peeks",
+    "recheck": "Re-verify in browser",
+    "ok": "Verified: opening commitment matches the final throw exactly."
+  },
+  "Notices": {
+    "tabSync": "Synced a match from another tab.",
+    "soundUnavailable": "Sound can't start right now — play is unaffected.",
+    "keySaved": "Key saved and kept in this page's memory only.",
+    "newSeries": "New series started — old matches are archived."
+  },
+  "Errors": {
+    "generic": "That step didn't finish. Try again in a moment.",
+    "network": "Connection dropped or timed out. Sealed throws are kept — retry this step.",
+    "badJson": "Server returned unreadable data. Try again shortly.",
+    "insecureBrowser": "Open the game in a modern browser with a secure context.",
+    "clearedOtherTab": "Matches were cleared in another tab. Refresh to continue.",
+    "lockedOtherTab": "Another tab is on this round. Hang tight.",
+    "localCleared": "Local matches were cleared. Refresh the page.",
+    "roundMismatch": "Opening proof doesn't match the current record. Throw buttons stay locked. Retry.",
+    "revealInvalid": "Peek proof is invalid. Retry.",
+    "finishFirst": "Finish the current round before starting a new series.",
+    "commitmentMismatch": "Throw proof failed: revealed content doesn't match the opening commitment. Round stopped — export and inspect.",
+    "receiptMismatch": "Settle proof doesn't match this round. Nothing written. Export and inspect.",
+    "keyRequired": "Enter a full TypeSafe API Key.",
+    "SETUP_REQUIRED": "Server proof secret isn't configured. Contact the site maintainer.",
+    "INVALID_ROUND": "This round's proof is invalid or expired — it can't be changed or regenerated. Export your record, then start a new series.",
+    "INVALID_HISTORY": "Match record is malformed or over the per-series cap.",
+    "HISTORY_TAMPER": "Match record failed verification — it may be edited or missing a round. Export first, then start a new series.",
+    "INVALID_SERIES": "Series id is invalid. Refresh the page.",
+    "MISSING_KEY": "Enter a valid TypeSafe API Key to begin.",
+    "SERIES_COMPLETE": "This series hit 500 rounds. Start a new series — old matches stay local and exportable.",
+    "INVALID_ANALYSIS": "Jev returned no valid behavior analysis. Round didn't start — retry.",
+    "INVALID_ANSWER": "Jev returned no valid rock, paper, or scissors. Round didn't start — retry.",
+    "INVALID_MOVE": "Choose rock, paper, or scissors.",
+    "PROVIDER_UNREACHABLE": "No word from Jev. Network may have timed out — retry shortly. Nothing counted.",
+    "INVALID_KEY": "TypeSafe rejected this key. Check the API key and account permissions.",
+    "NO_CREDIT": "TypeSafe account balance is low. Top up or switch keys.",
+    "RATE_LIMITED": "TypeSafe is busy or rate-limited. Wait a moment and retry.",
+    "PROVIDER_ERROR": "TypeSafe returned an error ({status}). Round hasn't started — retry later.",
+    "BAD_REQUEST": "Request rejected by the server. Check the payload and retry.",
+    "INTERNAL_ERROR": "That step didn't finish. Sealed throws are kept — retry."
+  }
+}

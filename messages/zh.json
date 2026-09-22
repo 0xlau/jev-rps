@@ -1,0 +1,315 @@
+{
+  "Metadata": {
+    "title": "Jev 对拳 · 剪刀、石头、布",
+    "description": "AI 先出拳，你再选择。每一局都可核验。",
+    "shortDescription": "AI 先出拳，你再选择。",
+    "applicationName": "Jev 对拳",
+    "siteName": "Jev 对拳",
+    "ogAlt": "Jev 对拳"
+  },
+  "Brand": {
+    "name": "Jev 对拳",
+    "tagline": "ROCK. PAPER. RIVAL.",
+    "homeAria": "Jev 对拳首页"
+  },
+  "Nav": {
+    "primary": "主导航",
+    "history": "我的战绩",
+    "github": "GitHub",
+    "connect": "连接 Jev",
+    "keyReady": "密钥已填写",
+    "localeSwitch": "语言"
+  },
+  "Locale": {
+    "en": "English",
+    "zh": "中文"
+  },
+  "Skip": {
+    "play": "跳到对局"
+  },
+  "Intro": {
+    "titleA": "猜拳，",
+    "titleB": "也猜心。",
+    "stampAria": "Jev 先出拳，锁定不反悔",
+    "stampTop": "先出拳",
+    "stampBottom": "不反悔"
+  },
+  "Moves": {
+    "scissors": "剪刀",
+    "rock": "石头",
+    "paper": "布"
+  },
+  "MovesBeats": {
+    "scissors": "胜布",
+    "rock": "胜剪刀",
+    "paper": "胜石头"
+  },
+  "Results": {
+    "human": "你赢了",
+    "jev": "Jev 赢了",
+    "draw": "心有灵犀，平局"
+  },
+  "ResultsShort": {
+    "human": "赢",
+    "jev": "输",
+    "draw": "平"
+  },
+  "Onboarding": {
+    "skip": "跳过",
+    "next": "下一步",
+    "start": "开打",
+    "progress": "第 {current} 步，共 {total} 步",
+    "slides": {
+      "0": {
+        "eyebrow": "01 · LOCK",
+        "title": "它先出手。",
+        "body": "Jev 先锁定出拳，你可以掀盖，也可以忍住。",
+        "visual": "我先出手。"
+      },
+      "1": {
+        "eyebrow": "02 · READ",
+        "title": "别让它看穿。",
+        "body": "它会读取你的规律，也会跟着你的状态变招。",
+        "visual": "观察 · 预判 · 变招"
+      },
+      "2": {
+        "eyebrow": "03 · FIGHT",
+        "title": "现在，见招拆招。",
+        "body": "石头、剪刀、布。开局。",
+        "visual": "READY?"
+      }
+    }
+  },
+  "Round": {
+    "label": "ROUND",
+    "steps": {
+      "jev": "Jev 出拳",
+      "you": "你选牌",
+      "reveal": "揭晓"
+    },
+    "progress": "对局进度",
+    "previous": "上一局",
+    "youThrew": "你出{move}",
+    "jevThrew": "Jev 出{move}"
+  },
+  "Court": {
+    "label": "剪刀石头布对局",
+    "you": "你",
+    "youBadge": "P1",
+    "youFlair": "直觉选手",
+    "jev": "Jev",
+    "jevBadge": "AI",
+    "jevFlair": "正在研究你",
+    "waiting": "等你出手",
+    "versus": "VS"
+  },
+  "Cover": {
+    "locked": "LOCKED IN",
+    "thinking": "THINKING…",
+    "ready": "READY WHEN YOU ARE",
+    "lockedLine": "我出好了。",
+    "thinkingLine": "让我猜猜…",
+    "readyLine": "来过两招？",
+    "peek": "偷偷看一眼",
+    "peeking": "揭盖中…",
+    "peekAgain": "重试揭盖"
+  },
+  "Status": {
+    "preparing": "Jev 在猜你会出什么…",
+    "resolving": "出拳锁定，正在揭晓…",
+    "revealing": "正在打开 Jev 的底牌…",
+    "lockedRetry": "你的拳已锁定，再试一次结算",
+    "peekedGo": "底牌看到了，轮到你出手",
+    "yourTurn": "它出好了。你呢？",
+    "firstRound": "第一拳，让 Jev 先来。",
+    "analyzing": "正在读取你的习惯…",
+    "roundDetail": "你出{player}，Jev 出{move}",
+    "peekedCounted": "已揭盖 · 计入全部战绩",
+    "usedHistory": "已参考你的历史记录",
+    "lockThenPlay": "Jev 先锁定，你再出拳"
+  },
+  "Main": {
+    "preparing": "Jev 正在出拳…",
+    "resolving": "正在揭晓…",
+    "retryResolve": "重试结算",
+    "newSeries": "开始新一组",
+    "again": "再来一局",
+    "start": "让 Jev 先出拳",
+    "connect": "连接 Jev，开始对局"
+  },
+  "Hints": {
+    "capReached": "旧战绩会归档，Jev 从头学习",
+    "again": "再给它一次猜中你的机会",
+    "needKey": "填入自己的 TypeSafe 密钥即可开打",
+    "enter": "Enter ↵",
+    "yourTurn": "你的回合",
+    "shortcuts": "按 <key>1</key> <key>2</key> <key>3</key> 也能出拳"
+  },
+  "ErrorBanner": {
+    "title": "这一步还没完成",
+    "fixKey": "检查或更换密钥"
+  },
+  "Behavior": {
+    "title": "Jev 上局开局前的观察",
+    "regularity": "规律程度",
+    "cunning": "狡猾程度",
+    "tilt": "失稳程度",
+    "adaptation": "策略变化",
+    "pending": "待观察",
+    "note": "根据第 {number} 局开局前的 {blind} 局未揭盖记录估计。失稳指输棋后的出拳变化，无法判断真实情绪。样本不足时不打分。"
+  },
+  "Commitment": {
+    "sealed": "出拳已封存",
+    "view": "查看承诺",
+    "viewProof": "查看凭证",
+    "explain": "此哈希在你出拳前保存，揭晓后自动比对。",
+    "usedContext": "已参考 {count} 局 · {model}",
+    "contextHash": "上下文 SHA-256：{hash}",
+    "passed": "这一拳，通过承诺核验",
+    "blurb": "先锁定，后出手。每局都能核验。",
+    "rules": "了解规则"
+  },
+  "Scoreboard": {
+    "heading": "THE SCORECARD",
+    "title": "谁更懂谁？",
+    "subtitle": "本组战绩",
+    "scope": "胜率统计范围",
+    "blind": "未揭盖",
+    "all": "全部对局",
+    "you": "你",
+    "jev": "Jev",
+    "wins": "胜",
+    "yourRate": "你的胜率",
+    "jevRate": "Jev 的胜率",
+    "total": "统计局数",
+    "draws": "平局",
+    "peeks": "本组揭盖",
+    "finePrint": "胜率 = 胜局 ÷ 所选范围总局数（含平局）。\n揭盖局始终保留在记录和 Jev 的记忆中。",
+    "recent": "最近五拳",
+    "noRounds": "你的故事，还没开始。",
+    "recentAria": "第 {number} 局，{result}{peeked}，查看凭证",
+    "peekedSuffix": "，已揭盖"
+  },
+  "Rival": {
+    "aria": "认识你的对手",
+    "eyebrow": "MEET YOUR RIVAL",
+    "titleA": "它会",
+    "titleB": "记住你。",
+    "scribble": "I'M ONTO YOU ↗"
+  },
+  "Comfort": {
+    "aria": "体验设置",
+    "soundOn": "音效开",
+    "soundOff": "音效关",
+    "motionQuiet": "动效已减弱",
+    "motionReduce": "减少动效",
+    "motionSystem": "已跟随系统减少动态效果"
+  },
+  "History": {
+    "eyebrow": "THE MATCHBOOK",
+    "title": "每一拳，都算数。",
+    "export": "导出记录",
+    "newSeries": "新的一组",
+    "filter": "查看记录",
+    "optionCurrent": "当前这组 · {count} 局",
+    "optionArchive": "第 {index} 组 · {count} 局 · {date}",
+    "caption": "每局出拳、胜负、是否揭盖及核验凭证",
+    "colNumber": "局次",
+    "colPlayer": "你的出拳",
+    "colJev": "Jev 的出拳",
+    "colResult": "结果",
+    "colMode": "对局方式",
+    "colProof": "凭证",
+    "peeked": "已揭盖",
+    "blind": "未揭盖",
+    "view": "查看",
+    "viewProofAria": "查看第 {number} 局凭证",
+    "emptyTitle": "还没有交手记录",
+    "emptyBody": "第一局，从一点点好奇心开始。",
+    "loadMore": "再看 {count} 局",
+    "note": "本机记录 · 每组最多 {max} 局 · 新的一组会重新学习"
+  },
+  "Fairness": {
+    "id": "fairness",
+    "question": "怎么知道 Jev 没有反悔？",
+    "summary": "公平说明",
+    "p1Title": "先出拳，再让你选择。",
+    "p1": "服务端调用真实 TypeSafe API，直接使用 Jev 返回的 choice。接口失败就停止这一局，不用随机结果冒充。你的本局选择不会发给 Jev。",
+    "p2Title": "先封存，再核验。",
+    "p2": "开局时把出拳、模型、局号、历史摘要和随机盐做成 SHA-256 承诺。浏览器先保存承诺，再开放按钮。揭盖或结算只解封原来的选择，不再次调用 AI；浏览器重新计算哈希，一致才记入战绩。",
+    "p3Title": "想掀盖子？可以。",
+    "p3": "盖子是一个真实的 div；未揭晓的出拳留在加密凭证里，不会提前写进页面。点击后拿到原来的出拳、移开盖子，并标记「已揭盖」。揭盖记录也会进入 Jev 的上下文。",
+    "p4Title": "这是个人对局记录。",
+    "p4": "承诺证明出拳未变，记录签名防止内容被随意修改；它不是 TypeSafe 官方签发的证明。本机存储不提供跨设备同步，也不能阻止使用开发者工具回滚旧记录、重放请求或绕过揭盖标记，因此不作为竞技排行榜。清除浏览器数据会丢失本机记录，请按需导出。"
+  },
+  "Footer": {
+    "brand": "Jev 对拳俱乐部",
+    "bye": "下局见。"
+  },
+  "Settings": {
+    "eyebrow": "YOUR OPPONENT AWAITS",
+    "closeAria": "关闭连接设置",
+    "titleA": "带上密钥，",
+    "titleB": "就能开打。",
+    "body": "连接真正的 Jev，让它先出第一拳。",
+    "label": "你的 TypeSafe API Key",
+    "placeholder": "在这里粘贴 API Key",
+    "hideKey": "隐藏密钥",
+    "showKey": "显示密钥",
+    "help": "密钥仅留在当前页面内存，刷新后需重填。请求经本站服务端转发至 TypeSafe，不写入战绩。",
+    "save": "保存密钥",
+    "connectStart": "连接，让 Jev 先出拳",
+    "modelNote": "jev-latest · 每局两次判断：分析习惯 → 决定出拳"
+  },
+  "Proof": {
+    "title": "第 {number} 局 · 出拳凭证",
+    "closeAria": "关闭凭证",
+    "intro": "将揭晓内容重新计算为 SHA-256，与开局前保存的承诺比对。",
+    "modelMove": "模型 / 出拳",
+    "preparedAt": "开局时间",
+    "commitment": "开局承诺 SHA-256",
+    "commitmentInput": "完整核验输入（UTF-8）",
+    "context": "上下文",
+    "contextValue": "前 {count} 局完整记录，包括平局和揭盖局",
+    "recheck": "在浏览器重新核验",
+    "ok": "核验通过：开局承诺与最终出拳完全一致。"
+  },
+  "Notices": {
+    "tabSync": "已同步另一标签页的对局。",
+    "soundUnavailable": "音效暂时无法开启，仍可正常对局。",
+    "keySaved": "密钥已填写，仅保留在当前页面内存。",
+    "newSeries": "已开启新的一组，旧战绩已归档保留。"
+  },
+  "Errors": {
+    "generic": "本次操作未完成，请重试。",
+    "network": "连接中断或等待超时。已锁定的出拳会保留，请重试当前操作。",
+    "badJson": "服务器未返回有效数据，请稍后重试。",
+    "insecureBrowser": "请使用支持安全连接的新版浏览器打开游戏。",
+    "clearedOtherTab": "战绩已在另一标签页清除，请刷新后继续。",
+    "lockedOtherTab": "另一标签页正在操作这一局，请稍等。",
+    "localCleared": "本机战绩已清除，请刷新页面。",
+    "roundMismatch": "开局凭证与当前战绩不符，出拳按钮不会解锁。请重试。",
+    "revealInvalid": "揭盖凭证无效，请重试。",
+    "finishFirst": "先完成当前这一局，再开启新的一组。",
+    "commitmentMismatch": "出拳凭证核验失败：揭晓的内容与开局承诺不一致。本局已停止，请导出记录检查。",
+    "receiptMismatch": "结算凭证与本局不一致，战绩未写入。请导出记录检查。",
+    "keyRequired": "请填写完整的 TypeSafe API Key。",
+    "SETUP_REQUIRED": "服务端凭证密钥尚未配置，请联系网站维护者。",
+    "INVALID_ROUND": "本局凭证无效或已过期，无法改变或重新生成本局出拳。请导出记录后开启新的一组。",
+    "INVALID_HISTORY": "战绩格式不正确或超出单组上限。",
+    "HISTORY_TAMPER": "战绩凭证校验失败，可能被修改或缺少某一局。请先导出记录，再开启新的一组。",
+    "INVALID_SERIES": "对局编号无效，请刷新页面。",
+    "MISSING_KEY": "请填写有效的 TypeSafe API Key 后再开始。",
+    "SERIES_COMPLETE": "本组已完成 500 局。开启新的一组后，旧战绩仍保留在本机并可导出。",
+    "INVALID_ANALYSIS": "Jev 没有返回有效的行为分析，本局没有开始，请重试。",
+    "INVALID_ANSWER": "Jev 没有返回有效的剪刀、石头或布。本局没有开始，请重试。",
+    "INVALID_MOVE": "请选择剪刀、石头或布。",
+    "PROVIDER_UNREACHABLE": "暂时没有收到 Jev 的判断。网络可能超时，请稍后重试；本次没有计入战绩。",
+    "INVALID_KEY": "TypeSafe 拒绝了这个密钥，请检查 API Key 和账户权限。",
+    "NO_CREDIT": "TypeSafe 账户余额不足，请充值或更换密钥。",
+    "RATE_LIMITED": "TypeSafe 当前繁忙或请求达到限额，请稍等再试。",
+    "PROVIDER_ERROR": "TypeSafe 返回错误（{status}）。本局尚未开始，可以稍后重试。",
+    "BAD_REQUEST": "请求被服务端拒绝。请检查参数后重试。",
+    "INTERNAL_ERROR": "本次操作未完成，请重试。已锁定的出拳会保留。"
+  }
+}

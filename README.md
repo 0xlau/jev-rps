@@ -15,10 +15,10 @@
     <img src="public/icon.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Jev 对拳</h3>
+<h3 align="center">Jev 对拳 (Jev RPS)</h3>
 
   <p align="center">
-    AI 先出拳，你再选择。每一局都可核验。
+    Jev throws first — and every round is verifiable.
     <br />
     <a href="https://github.com/0xlau/jev-rps"><strong>Explore the docs »</strong></a>
     <br />
@@ -60,19 +60,31 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Jev 对拳 Screen Shot][product-screenshot]](https://jev-rps.timlau.me)
+[![Jev RPS Screen Shot][product-screenshot]](https://jev-rps.timlau.me)
 
-Jev 对拳是一个可核验的剪刀石头布游戏：每一局由 TypeSafe 的真实 Jev 模型**先锁定出拳**，你再选择剪刀、石头或布。开局时服务端把 Jev 的出拳做成 SHA-256 承诺封存，浏览器先保存承诺再开放按钮；揭晓后重新比对哈希，一致才记入战绩。
+Jev 对拳 (Jev RPS) is a verifiable rock-paper-scissors game against TypeSafe's real **Jev** model. Every round, Jev commits to its move **before** you pick rock, paper, or scissors. At round start the server seals Jev's choice with a salted SHA-256 commitment (and AES-256-GCM encryption); the browser stores that commitment first and only then unlocks your buttons. After the reveal, the hash is recomputed and compared — the round only counts when they match.
 
-核心特性：
+Core features:
 
-* **先出拳，不反悔** — Jev 的选择在你出手前已加密封存，接口失败就停局，不用随机结果冒充
-* **每局可核验** — 承诺哈希 + 出拳凭证，浏览器本地重算比对
-* **可主动揭盖** — 盖子是个真实的 div；未揭晓的出拳不进页面；揭盖局单独标记
-* **完整对局上下文** — 当前组每一局已完成记录都会进入 Jev 的下一局上下文（每组最多 500 局）
-* **行为读数** — 规律程度、狡猾程度、失稳程度、策略变化，0–100 可展开查看
+* **Committed first, no take-backs** — Jev's move is sealed before you act. If the provider fails, the round stops; we never invent a fake move
+* **Every round verifiable** — commitment hash + reveal proof, recomputed and checked locally in your browser
+* **Optional early peek** — the cover is a real DOM element; unrevealed moves never enter the page; peeked rounds are tracked separately
+* **Full series context** — every completed round in the current series feeds Jev's next decision (up to 500 rounds per series)
+* **Behavior readouts** — regularity, cunning, instability, and strategy-shift scores on a 0–100 scale, expandable in the UI
 
-游戏记录保存在当前浏览器本地，可导出 JSON。这是个人对局记录，不是竞技排行榜。详细协议与策略说明见 [STRATEGY.md](STRATEGY.md)。
+Game history lives in your browser and can be exported as JSON. This is a personal match log, not a competitive leaderboard. For protocol and strategy details, see [STRATEGY.md](STRATEGY.md).
+
+The site ships in **English (default) and Chinese (i18n)**.
+
+---
+
+> [!IMPORTANT]
+> ### 🥊 Help build Jev into an **invincible** player!
+>
+> This repo is a community effort. Together we can turn Jev into a truly **unbeatable** rock-paper-scissors opponent.
+> **把仓库一起打造成 Jev 战无不胜的玩家！**
+>
+> Strategies, prompts, evals, benchmarks, and UX — all contributions are welcome. Jump into [Contributing](#contributing), open an issue, or send a PR. Let's make Jev unstoppable. 🚀
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,7 +99,7 @@ Jev 对拳是一个可核验的剪刀石头布游戏：每一局由 TypeSafe 的
 <!-- GETTING STARTED -->
 ## Getting Started
 
-本地跑起来并部署到 Vercel，按下面步骤即可。
+Run the project locally and deploy it to Vercel with the steps below.
 
 ### Prerequisites
 
@@ -96,7 +108,7 @@ Jev 对拳是一个可核验的剪刀石头布游戏：每一局由 TypeSafe 的
   ```sh
   npm install npm@latest -g
   ```
-* 自己的 [TypeSafe](https://typesafe.ai) API Key（在游戏中填写，不必写进环境变量）
+* Your own [TypeSafe](https://typesafe.ai) API key (entered in the game UI; no need to put it in env vars)
 
 ### Installation
 
@@ -109,32 +121,34 @@ Jev 对拳是一个可核验的剪刀石头布游戏：每一局由 TypeSafe 的
    ```sh
    npm ci
    ```
-3. 生成生产用的 `GAME_SECRET`（至少 32 字符随机串，用于加密出拳和签名战绩，**不是** TypeSafe API Key）
+3. Generate a production `GAME_SECRET` (a random string of at least 32 characters — used to encrypt moves and sign match records; this is **not** your TypeSafe API key)
    ```sh
    node -e 'console.log(require("node:crypto").randomBytes(48).toString("hex"))'
    ```
-4. 配置 `.env.local`（不要使用 `NEXT_PUBLIC_` 前缀）
+4. Configure `.env.local` (do **not** use a `NEXT_PUBLIC_` prefix)
    ```sh
-   GAME_SECRET=<上一步生成的随机串>
+   GAME_SECRET=<the random string from step 3>
    ```
-5. 启动开发服务器
+5. Start the development server
    ```sh
    npm run dev
    ```
-   打开 `http://127.0.0.1:4173`。
+   Open `http://127.0.0.1:4173`.
 
-开发模式自动生成临时服务端封存密钥；需要跨重启继续旧对局时务必配置固定的 `GAME_SECRET`。
+Dev mode auto-generates a temporary server-side sealing key. If you need old series to survive restarts, always configure a fixed `GAME_SECRET`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-在网页的「连接 Jev」中填入自己的 TypeSafe API Key，点击「让 Jev 先出拳」。等出拳封存后，选择剪刀、石头或布；也可以先点「偷偷看一眼」揭盖（揭盖局会计入全部战绩并进入 Jev 的记忆）。
+Enter your TypeSafe API key under **Connect Jev**, then click **Let Jev throw first**. Once the move is sealed, choose rock, paper, or scissors — or lift the cover first with **Sneak a peek** (peeked rounds still count in overall stats and enter Jev's memory).
 
-密钥仅在当前页面内存中保留，经同源 Route Handler 转发给 TypeSafe；不会写入本机战绩、导出文件或应用日志。
+The API key stays in page memory only and is forwarded through a same-origin Route Handler to TypeSafe. It is never written into local match history, export files, or app logs.
 
-### 部署到 Vercel
+The UI is available in English (default) and Chinese.
+
+### Deploy to Vercel
 
 ```sh
 npx vercel whoami
@@ -143,9 +157,9 @@ npx vercel env add GAME_SECRET production --sensitive
 npx vercel --prod
 ```
 
-`GAME_SECRET` 需要在部署前配置，并在后续部署中保持不变；更换会使旧凭证和旧历史签名失效。不要把用户的 TypeSafe API Key 配置为公共环境变量。预览部署也需要配置 `GAME_SECRET`。
+`GAME_SECRET` must be configured before deployment and kept stable across later deploys — rotating it invalidates old fairness proofs and old history signatures. Never configure a user's TypeSafe API key as a public environment variable. Preview deployments also need `GAME_SECRET`.
 
-### 验证
+### Verification
 
 ```sh
 npm test
@@ -154,7 +168,7 @@ npx playwright install chromium --only-shell
 npx playwright test tests/browser/strategy.spec.js
 ```
 
-真实 Jev 对照实验（终端隐藏输入 API Key，或使用 `TYPESAFE_API_KEY`）：
+Real Jev comparison experiments (API key is hidden input in the terminal, or use `TYPESAFE_API_KEY`):
 
 ```sh
 node scripts/benchmark.mjs train
@@ -162,10 +176,10 @@ node scripts/benchmark.mjs refine
 node scripts/benchmark.mjs holdout
 ```
 
-### 重新生成 og-image
+### Regenerate the og-image
 
 ```sh
-node scripts/render-og-image.mjs
+node scripts/render-og-image.mjs  # writes public/og-image.png (EN) and public/og-image.zh.png (ZH)
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -173,12 +187,10 @@ node scripts/render-og-image.mjs
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] 先封存再出拳的承诺协议（SHA-256 + AES-256-GCM）
-- [x] 揭盖 / 未揭盖双轨统计
-- [x] 行为读数与策略权重混合
-- [x] 战绩导出与分组归档
-- [ ] 跨设备同步（可选）
-- [ ] 公平性凭证的第三方独立核验页面
+- [x] Commit-then-reveal protocol (SHA-256 + AES-256-GCM)
+- [x] Separate blind-play and all-round statistics (peeked vs unpeeked)
+- [x] Behavior readouts blended with strategy weights
+- [x] Match export and series archiving
 
 See the [open issues](https://github.com/0xlau/jev-rps/issues) for a full list of proposed features (and known issues).
 
@@ -187,7 +199,7 @@ See the [open issues](https://github.com/0xlau/jev-rps/issues) for a full list o
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+**Want to help make Jev invincible?** Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated** — whether you bring a new strategy, a sharper prompt, an eval suite, a benchmark, or a UX polish.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -197,6 +209,13 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+Ideas that especially move the needle toward *unbeatable Jev*:
+
+* 🧠 Strategy research & counter-strategy ideas
+* 📝 Prompt and evaluation improvements for the Jev pipeline
+* 📊 Benchmarks and honest measurement harnesses
+* ✨ UX, i18n, and accessibility improvements
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -219,7 +238,7 @@ Project Link: [https://github.com/0xlau/jev-rps](https://github.com/0xlau/jev-rp
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [TypeSafe / Jev](https://typesafe.ai) — 提供真实 Jev 模型
+* [TypeSafe / Jev](https://typesafe.ai) — for the real Jev model
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 * [othneildrew](https://github.com/othneildrew)
 * [Img Shields](https://shields.io)

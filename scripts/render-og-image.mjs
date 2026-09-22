@@ -7,7 +7,6 @@ import { execFileSync } from 'node:child_process';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const htmlPath = join(root, 'tmp', 'og-image.html');
 const out2x = join(root, 'tmp', 'og-image@2x.png');
-const out = join(root, 'public', 'og-image.png');
 
 const star = (cls, color, size) =>
   `<div class="${cls}"><svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="${color}"><path d="m50 0 9 31 27-17-17 27 31 9-31 9 17 27-27-17-9 31-9-31-27 17 17-27L0 50l31-9-17-27 27 17Z"/></svg></div>`;
@@ -40,8 +39,26 @@ const mascotSvg = `
   </g>
 </svg>`;
 
-const html = `<!DOCTYPE html>
-<html lang="zh-CN">
+const COPY = {
+  en: {
+    eyebrow: 'ROCK · PAPER · RIVAL',
+    titleLead: 'Jev ',
+    titleRival: 'RPS',
+    tagline: '<b>AI moves first</b>, then you play.<br />Every round is verifiable.',
+    lang: 'en',
+  },
+  zh: {
+    eyebrow: 'ROCK · PAPER · RIVAL',
+    titleLead: 'Jev ',
+    titleRival: '对拳',
+    tagline: '<b>AI 先出拳</b>，你再选择。<br />每一局都可核验。',
+    lang: 'zh-CN',
+  },
+};
+
+function renderHtml(copy) {
+  return `<!DOCTYPE html>
+<html lang="${copy.lang}">
 <head>
 <meta charset="utf-8" />
 <style>
@@ -112,11 +129,11 @@ const html = `<!DOCTYPE html>
   }
   h1 {
     margin-top: 30px;
-    font-size: 118px; line-height: 1.04;
+    font-size: 112px; line-height: 1.04;
     font-weight: 800; letter-spacing: -.045em;
     display: flex; align-items: baseline;
   }
-  h1 .rival { position: relative; color: #ec563a; margin-left: 18px; }
+  h1 .rival { position: relative; color: #ec563a; margin-left: 14px; }
   h1 .rival::after {
     content: '';
     position: absolute; left: 2%; bottom: -6px;
@@ -225,9 +242,9 @@ const html = `<!DOCTYPE html>
 
   <div class="frame">
     <section class="copy">
-      <span class="eyebrow">ROCK · PAPER · RIVAL</span>
-      <h1>Jev<span class="rival">对拳</span></h1>
-      <p class="tagline"><b>AI 先出拳</b>，你再选择。<br />每一局都可核验。</p>
+      <span class="eyebrow">${copy.eyebrow}</span>
+      <h1>${copy.titleLead}<span class="rival">${copy.titleRival}</span></h1>
+      <p class="tagline">${copy.tagline}</p>
       <div class="corner-dots"><span></span><span></span><span></span></div>
     </section>
 
@@ -250,20 +267,27 @@ const html = `<!DOCTYPE html>
   </div>
 </body>
 </html>`;
+}
 
 mkdirSync(join(root, 'tmp'), { recursive: true });
-writeFileSync(htmlPath, html);
 
 const browser = await chromium.launch();
 const page = await browser.newPage({
   viewport: { width: 1200, height: 630 },
   deviceScaleFactor: 2,
 });
-await page.goto(`file://${htmlPath}`, { waitUntil: 'load' });
-await page.evaluate(() => document.fonts.ready);
-await page.waitForTimeout(200);
-await page.screenshot({ path: out2x });
-await browser.close();
 
-execFileSync('sips', ['-z', '630', '1200', out2x, '--out', out], { stdio: 'pipe' });
-console.log(`wrote ${out}`);
+for (const [locale, copy] of Object.entries(COPY)) {
+  const out = locale === 'en'
+    ? join(root, 'public', 'og-image.png')
+    : join(root, 'public', `og-image.${locale}.png`);
+  writeFileSync(htmlPath, renderHtml(copy));
+  await page.goto(`file://${htmlPath}`, { waitUntil: 'load' });
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(200);
+  await page.screenshot({ path: out2x });
+  execFileSync('sips', ['-z', '630', '1200', out2x, '--out', out], { stdio: 'pipe' });
+  console.log(`wrote ${out}`);
+}
+
+await browser.close();

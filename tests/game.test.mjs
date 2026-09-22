@@ -77,12 +77,12 @@ test('client verifies against the saved commitment, not a replacement commitment
   const f = fixture();
   const ready = await f.prepare();
   const revealed = f.service.reveal({ sealedRound: ready.sealedRound });
-  await assert.rejects(verifyProof({ ...revealed.proof, move: 'paper' }, ready, f.series), /核验失败/);
+  await assert.rejects(verifyProof({ ...revealed.proof, move: 'paper' }, ready, f.series), /does not match the opening commitment/);
   await assert.rejects(verifyProof({ ...revealed.proof, contextHash: 'f'.repeat(64) }, ready, f.series));
   await assert.rejects(verifyProof(revealed.proof, ready, randomUUID()));
   const resolved = f.service.resolve({ sealedRound: ready.sealedRound, player: 'rock' });
   resolved.receipt.record.result = 'human';
-  await assert.rejects(verifyReceipt(resolved, { ...ready, player: 'rock', peeked: false }, f.series, []), /结算凭证/);
+  await assert.rejects(verifyReceipt(resolved, { ...ready, player: 'rock', peeked: false }, f.series, []), /does not match this round/);
 });
 
 test('all completed rounds, including peeks and draws, enter the next context in order', async () => {
@@ -103,21 +103,21 @@ test('all completed rounds, including peeks and draws, enter the next context in
   assert.equal(history[1].record.previous, sha256(history[0].signature));
   assert.equal(f.service.verifyHistory(history, f.series), sha256(history[2].signature));
   const edited = structuredClone(history); edited[0].record.player = 'scissors';
-  await assert.rejects(f.prepare(edited), /战绩凭证校验失败/);
-  await assert.rejects(f.prepare([history[0], history[2]]), /战绩凭证校验失败/);
-  await assert.rejects(f.prepare([...history].reverse()), /战绩凭证校验失败/);
-  await assert.rejects(f.service.prepare({ history, series: randomUUID(), apiKey }), /战绩凭证校验失败/);
+  await assert.rejects(f.prepare(edited), /failed verification/);
+  await assert.rejects(f.prepare([history[0], history[2]]), /failed verification/);
+  await assert.rejects(f.prepare([...history].reverse()), /failed verification/);
+  await assert.rejects(f.service.prepare({ history, series: randomUUID(), apiKey }), /failed verification/);
 });
 
 test('mutated or foreign round tokens are rejected', async () => {
   const f = fixture();
   const { sealedRound } = await f.prepare();
   const edited = sealedRound.slice(0, 40) + (sealedRound[40] === 'A' ? 'B' : 'A') + sealedRound.slice(41);
-  assert.throws(() => f.service.resolve({ sealedRound: edited, player: 'rock' }), /本局凭证无效/);
-  assert.throws(() => f.service.reveal({ sealedRound: 'not-a-token' }), /本局凭证无效/);
+  assert.throws(() => f.service.resolve({ sealedRound: edited, player: 'rock' }), /proof is invalid or expired/);
+  assert.throws(() => f.service.reveal({ sealedRound: 'not-a-token' }), /proof is invalid or expired/);
   const other = createGameService({ secret: 'a-different-secret'.repeat(3) });
-  assert.throws(() => other.reveal({ sealedRound }), /本局凭证无效/);
-  assert.throws(() => f.service.resolve({ sealedRound, player: 'lizard' }), /请选择/);
+  assert.throws(() => other.reveal({ sealedRound }), /proof is invalid or expired/);
+  assert.throws(() => f.service.resolve({ sealedRound, player: 'lizard' }), /Choose rock, paper, or scissors/);
 });
 
 test('provider errors never manufacture a decision or expose upstream details', async t => {
@@ -129,7 +129,7 @@ test('provider errors never manufacture a decision or expose upstream details', 
     });
   }
   await assert.rejects(fixture({ throws: true }).prepare(), error => error.code === 'PROVIDER_UNREACHABLE');
-  await assert.rejects(fixture({ answer: { model: 'jev-1.13.0', answers: { move: { type: 'choice', choice: 'spock' } } } }).prepare(), /有效/);
+  await assert.rejects(fixture({ answer: { model: 'jev-1.13.0', answers: { move: { type: 'choice', choice: 'spock' } } } }).prepare(), /no valid rock, paper, or scissors/);
 });
 
 test('win rates include draws and can exclude peeked games', () => {
@@ -172,7 +172,7 @@ test('Route Handler validates requests and strips a supplied current move before
   assert.equal((await handler(request(payload, { 'Content-Length': '4100000' }))).status, 413);
   assert.equal((await handler(request({ action: 'bad' }))).status, 400);
   assert.equal((await handler(request(null))).status, 400);
-  assert.throws(() => createGameService({ secret: '' }), /尚未配置/);
+  assert.throws(() => createGameService({ secret: '' }), /is not configured/);
 });
 
 test('bad analysis stops before the move request; no invented behavior or move', async () => {
