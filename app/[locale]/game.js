@@ -9,6 +9,7 @@ import { digest, historyContext, verifyProof, verifyReceipt } from '../../lib/pr
 import { STORAGE_KEY, LOCK_KEY, freshState, readState, writeState } from '../../lib/browser-store.js';
 import { Icon, Hand, Mascot, Star } from '../icons.js';
 import { createSoundPlayer } from '../../lib/sound.js';
+import { track } from '../google-analytics.js';
 
 const EMPTY = { history: [], archives: [], pending: null };
 const percent = value => value === null ? '—' : `${value.toFixed(1)}%`;
@@ -219,6 +220,7 @@ export default function Game() {
       setConnectionError(t('Errors.keyRequired')); keyRef.current?.focus(); return;
     }
     closeSettings();
+    track('jev_connect', { mode: startAfterSetup.current ? 'connect_and_start' : 'save_key' });
     if (startAfterSetup.current) prepare();
     else setNotice(t('Notices.keySaved'));
   }
@@ -258,6 +260,8 @@ export default function Game() {
         throw codedError('roundMismatch', t('Errors.roundMismatch'));
       }
       save({ ...current, pending: { ...result, peeked: false, player: null, proof: null } });
+      // Outcome-level only: the sealed token, the commitment and Jev's move stay local.
+      track('jev_round_prepared', { round_number: result.number, latency_ms: result.latencyMs });
       focusIntent.current = 'choose'; playSound('ready');
     });
   }
@@ -288,6 +292,9 @@ export default function Game() {
         player: current.pending.player, peeked: current.pending.peeked });
       await verifyReceipt(result, current.pending, current.series, current.history);
       save({ ...current, history: [...current.history, result.receipt], pending: null });
+      // Never the moves, never the key: just who won and whether the cover was lifted.
+      track('jev_round_resolved', { round_number: result.receipt.record.number,
+        result: result.receipt.record.result, peeked: result.receipt.record.peeked });
       setCelebration({ id: result.receipt.record.id, result: result.receipt.record.result });
       focusIntent.current = 'next'; playSound(result.receipt.record.result);
     });
@@ -299,6 +306,7 @@ export default function Game() {
       if (!current.history.length) return;
       const archived = { series: current.series, history: current.history, archivedAt: new Date().toISOString() };
       save({ ...freshState(), archives: [...current.archives, archived] });
+      track('jev_series_started', { archived_rounds: archived.history.length });
       setArchiveId('current'); setHistoryLimit(12); setNotice(t('Notices.newSeries'));
     });
   }
@@ -309,18 +317,21 @@ export default function Game() {
       downloadJson({ format: 'jev-duel-export/v1', exportedAt: new Date().toISOString(),
         verification: 'SHA-256 of UTF-8 JSON.stringify(["jev-rps/v1",series,id,number,model,contextHash,move,nonce,preparedAt])',
         game: value }, `jev-duel-${new Date().toISOString().slice(0, 10)}.json`);
+      track('jev_history_exported', { rounds: value.history.length, archives: value.archives.length });
     } catch { downloadJson({ raw: localStorage.getItem(STORAGE_KEY) }, 'jev-duel-recovery.json'); }
   }
 
   function inspect(record, event) {
     proofTrigger.current = event.currentTarget; setProofStatus(''); setProof(record);
+    track('jev_proof_opened', { round_number: record.number, peeked: record.peeked });
   }
   function closeProof() { setProof(null); proofTrigger.current?.focus(); }
   async function recheck() {
     try {
       await verifyProof(proof, proof, proof.series);
       setProofStatus(t('Proof.ok'));
-    } catch (e) { setProofStatus(showErr(e)); }
+      track('jev_proof_reverified', { verified: true });
+    } catch (e) { setProofStatus(showErr(e)); track('jev_proof_reverified', { verified: false }); }
   }
 
   const current = game || EMPTY;

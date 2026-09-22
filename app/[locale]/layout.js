@@ -61,7 +61,7 @@ export default async function LocaleLayout({ children, params }) {
           {children}
           <LocaleSwitcher />
         </NextIntlClientProvider>
-        <GoogleAnalytics />
+        <GoogleAnalytics pageTitle={messages.Metadata.title} />
       </body>
     </html>
   );

@@ -159,6 +159,26 @@ npx vercel --prod
 
 `GAME_SECRET` must be configured before deployment and kept stable across later deploys — rotating it invalidates old fairness proofs and old history signatures. Never configure a user's TypeSafe API key as a public environment variable. Preview deployments also need `GAME_SECRET`.
 
+### Analytics (GA4, optional)
+
+The site loads no analytics script unless a GA4 web measurement ID is configured; without it the analytics component renders nothing at all.
+
+```sh
+# .env.local
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+```sh
+npx vercel env add NEXT_PUBLIC_GA_MEASUREMENT_ID production
+npx vercel env add NEXT_PUBLIC_GA_MEASUREMENT_ID preview
+```
+
+`NEXT_PUBLIC_` values are inlined at build time, so redeploy after adding or changing the ID. Check `window.dataLayer` in devtools or GA4 Realtime to confirm.
+
+Events: `page_view` (one per URL, including client-side language switches, which the default config page view misses), `jev_connect`, `jev_round_prepared` (round number and server latency), `jev_round_resolved` (outcome and whether the cover was lifted), `jev_series_started`, `jev_history_exported`, `jev_proof_opened`, `jev_proof_reverified`.
+
+Privacy rules for anything added here: the TypeSafe API key, sealed round tokens, commitments and both players' moves are never sent — only outcomes and counts. Every call goes through a wrapper that cannot throw, so a blocked or failing measurement script can never interrupt a round. GA4 still sets cookies, so if you serve visitors in the EU or UK, add a consent banner and Consent Mode before switching it on in production.
+
 ### Verification
 
 ```sh
