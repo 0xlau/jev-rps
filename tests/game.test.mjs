@@ -6,7 +6,7 @@ import { MOVES, outcome, commitmentText, statsFor } from '../lib/protocol.js';
 import { verifyProof, verifyReceipt } from '../lib/proof.js';
 import { createHandler } from '../lib/handler.js';
 import { analysisFixture } from './provider-fixture.mjs';
-import { buildEvidence, moveRequest } from '../lib/strategy.js';
+import { buildEvidence, moveRequest, COUNTER } from '../lib/strategy.js';
 
 const secret = 'unit-test-only-secret-'.repeat(3);
 const apiKey = 'unit-test-provider-key';
@@ -59,6 +59,8 @@ test('prepare calls the real API contract, hides the decision, and commits befor
   assert.equal(resolved.receipt.record.usage.output, 75);
   assert.equal(resolved.receipt.record.usage.requests, 2);
   assert.equal(resolved.receipt.record.strategy.behavior.tilt.value, null);
+  assert.equal(resolved.receipt.record.strategy.selfPredictability, null);
+  assert.equal(resolved.receipt.record.strategy.exploitAlert, null);
 });
 
 test('reveal and resolve decrypt the same choice; peek label survives token upgrade', async () => {
@@ -194,4 +196,80 @@ test('online experts learn a cycle, ignore peeked targets, and adaptation change
   const stable = moveRequest(rows, evidence, analysis);
   const changed = moveRequest(rows, evidence, { behavior: { adaptation: { value: 100 } } });
   assert.ok(changed.state.decision_evidence.recent_weight > stable.state.decision_evidence.recent_weight);
+});
+
+// Reproduction of the reported losing streak: Jev's own committed moves fall
+// into the rock -> scissors -> paper cycle, and the human plays Jev's previous
+// move every round, which is exactly how the exported 51-round match ended
+// (rounds 32-51: 20 losses in a row).
+function losingStreak(rounds = 30) {
+  const cycle = ['rock', 'scissors', 'paper'];
+  const rows = [];
+  for (let i = 0; i < rounds; i++) {
+    const jev = cycle[i % 3];
+    const human = i === 0 ? 'rock' : rows[i - 1][2]; // copy of Jev's previous move
+    rows.push([i + 1, human, jev, outcome(human, jev), false]);
+  }
+  return rows;
+}
+
+test('a repeating rule of Jev own moves is detected, held forward, and stopped from owning the throw', () => {
+  const rows = losingStreak();
+  const evidence = buildEvidence(rows);
+  const alert = evidence.exploit_alert;
+  assert.ok(alert, 'the exploit must be detected once Jev repeats itself and the human cashes in');
+  assert.ok(evidence.jev_self_predictability >= 0.6);
+  assert.ok(evidence.human_exploitation_rate >= 0.5);
+  assert.equal(alert.my_next_move_if_rule_repeats, evidence.my_repeating_rule.repeats_with);
+  assert.equal(alert.human_exploit_move, COUNTER[alert.my_next_move_if_rule_repeats]);
+  // The ensemble had the real answer all along: the human is copying Jev's last move.
+  const lastJev = rows.at(-1)[2];
+  assert.equal(Object.entries(evidence.human_response_to_my_last_move)
+    .reduce((a, b) => (b[1] > a[1] ? b : a))[0], lastJev);
+  const analysis = { behavior: { adaptation: { value: 50 }, cunning: { value: 50 } } };
+  const decision = moveRequest(rows, evidence, analysis).state.decision_evidence;
+  // The discrete tactic no longer owns the forecast: the validated ensemble keeps a floor.
+  assert.ok(decision.ensemble_weight >= 0.15, 'the rolling ensemble must keep a floor');
+  assert.notDeepEqual(decision.human_forecast, evidence.counter_after_human_win_forecast);
+  const bestJev = MOVES.reduce((a, b) => (decision.win_probability_by_jev_move[b] > decision.win_probability_by_jev_move[a] ? b : a));
+  assert.equal(bestJev, COUNTER[lastJev], 'the decision must answer the copying human, not repeat the detected rule');
+  assert.notEqual(bestJev, alert.my_next_move_if_rule_repeats);
+});
+
+test('predictability alone is not exploitation: a poked-at constant Jev move raises no alert', () => {
+  const rows = Array.from({ length: 30 }, (_, i) => [i + 1, ['rock', 'paper', 'scissors'][i % 3], 'rock', 'draw', false]);
+  const evidence = buildEvidence(rows);
+  assert.ok(evidence.jev_self_predictability >= 0.6, 'Jev repeating itself is still measured');
+  assert.ok(Math.abs(evidence.human_exploitation_rate - 1 / 3) < 1e-3, 'a cycling human only beats the rule by chance');
+  assert.equal(evidence.exploit_alert, null);
+});
+
+test('a tactic that stops holding up loses its share of the throw', () => {
+  // A human who really does counter Jev's previous move after winning: the
+  // tactic keeps its weight.
+  const countering = Array.from({ length: 30 }, (_, i) => [i + 1,
+    i === 0 ? 'paper' : COUNTER['rock'], 'rock', i === 0 ? 'jev' : 'human', false]);
+  const holding = buildEvidence(countering);
+  // The reported streak: the same tactic kept predicting a counter that stopped coming.
+  const streak = losingStreak();
+  const evidence = buildEvidence(streak);
+  assert.equal(evidence.recent_counter_after_win_samples > 0, true);
+  assert.equal(evidence.recent_counter_after_win_rate, 0, 'the human stopped countering Jev, so the tactic is failing');
+  assert.equal(holding.recent_counter_after_win_rate, 1);
+  const failing = moveRequest(streak, evidence, { behavior: { cunning: { value: 51 } } }).state.decision_evidence;
+  const held = moveRequest(countering, holding, { behavior: { cunning: { value: 51 } } }).state.decision_evidence;
+  assert.ok(failing.counter_weight < held.counter_weight, 'a failing tactic must carry less weight than a held-up one');
+});
+
+test('the first-stage prediction is gated by real concentration, not by a distribution that sums to one', () => {
+  const rows = Array.from({ length: 30 }, (_, i) => [i + 1, ['rock', 'paper', 'scissors'][i % 3], 'paper', 'draw', false]);
+  const evidence = buildEvidence(rows);
+  const sharp = moveRequest(rows, evidence, { behavior: { regularity: { value: 100 }, cunning: { value: 50 } },
+    human_prediction: 'rock', human_probabilities: { rock: .9, paper: .06, scissors: .04 } }).state.decision_evidence;
+  assert.ok(sharp.model_concentration > 0.7);
+  assert.ok(sharp.model_weight > 0, 'a sharp first-stage prediction must reach the decision');
+  const flat = moveRequest(rows, evidence, { behavior: { regularity: { value: 100 }, cunning: { value: 50 } },
+    human_probabilities: { rock: 1 / 3, paper: 1 / 3, scissors: 1 / 3 } }).state.decision_evidence;
+  assert.equal(flat.model_concentration, 0);
+  assert.equal(flat.model_weight, 0, 'a uniform first-stage prediction must stay silent');
 });
