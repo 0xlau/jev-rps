@@ -179,6 +179,8 @@ Events: `page_view` (one per URL, including client-side language switches, which
 
 Privacy rules for anything added here: the TypeSafe API key, sealed round tokens, commitments and both players' moves are never sent — only outcomes and counts. Every call goes through a wrapper that cannot throw, so a blocked or failing measurement script can never interrupt a round. GA4 still sets cookies, so if you serve visitors in the EU or UK, add a consent banner and Consent Mode before switching it on in production.
 
+The strict CSP in `proxy.js` is nonce-based, so gtag.js itself loads through `'strict-dynamic'`; its transport hosts are only opened in `connect-src` and `img-src` while a measurement ID is configured. With no ID the policy stays exactly `'self'`. If you add another analytics or tag destination, add its hosts to `ANALYTICS_HOSTS` as well.
+
 ### Verification
 
 ```sh
