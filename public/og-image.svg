@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f3e8"/>
+  <path d="M0 508C184 458 340 502 488 630H0Z" fill="#ffdfcd"/>
+  <path d="M760 0h440v286c-95 54-188 46-284 5S843 188 760 246Z" fill="#e7ebff"/>
+  <path d="M47 54h1106v522H47Z" fill="none" stroke="#252522" stroke-width="12"/>
+  <text x="74" y="134" fill="#252522" font-family="Arial, sans-serif" font-size="76" font-weight="900">Jev 对拳</text>
+  <text x="79" y="181" fill="#354cc2" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">ROCK · PAPER · RIVAL</text>
+  <path d="M335 431c-42-34-36-80-8-112 16-18 42-28 62-40 19-11 27-30 47-34 22-4 35 14 31 35l-8 38c-2 9 4 14 13 10l35-16c23-10 38 18 20 33l-48 40c-27 22-51 44-72 70-23 28-49 20-72-4Z" fill="#fffdf7" stroke="#252522" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M355 337c44 32 75 64 96 116M327 373c37 19 65 43 84 74" fill="none" stroke="#252522" stroke-width="8" stroke-linecap="round"/>
+  <g transform="translate(760 235) rotate(5)">
+    <rect x="0" y="0" width="285" height="245" rx="18" fill="#4663ed" stroke="#252522" stroke-width="14"/>
+    <rect x="28" y="35" width="229" height="174" rx="11" fill="#fffdf7" stroke="#252522" stroke-width="8" stroke-dasharray="15 11"/>
+    <circle cx="143" cy="104" r="35" fill="#f8d45a" stroke="#252522" stroke-width="8"/>
+    <path d="m143 72 7 22 23 7-23 7-7 23-7-23-23-7 23-7Z" fill="#ec563a" stroke="#252522" stroke-width="5"/>
+    <text x="143" y="177" text-anchor="middle" fill="#252522" font-family="Arial, sans-serif" font-size="24" font-weight="900">LOCKED IN</text>
+    <path d="M24 235 5 273M260 235l20 38" stroke="#252522" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(1030 345)">
+    <path d="M0 122C-7 71 18 25 71 7c56-19 108 7 125 63 13 42-3 95-33 119-45 36-155 7-163-67Z" fill="#252522"/>
+    <rect x="45" y="55" width="42" height="54" rx="18" fill="#fffdf7"/>
+    <rect x="105" y="55" width="42" height="54" rx="18" fill="#fffdf7"/>
+    <circle cx="70" cy="83" r="8" fill="#4663ed"/>
+    <circle cx="126" cy="83" r="8" fill="#ec563a"/>
+  </g>
+  <path d="m665 84 7 22 23 7-23 7-7 23-7-23-23-7 23-7Z" fill="#f8d45a" stroke="#252522" stroke-width="6"/>
+  <path d="M76 260h220M76 286h152" stroke="#ec563a" stroke-width="15" stroke-linecap="round"/>
+</svg>

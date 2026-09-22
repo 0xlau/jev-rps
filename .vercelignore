@@ -1,0 +1,9 @@
+.impeccable
+tests
+test-results
+playwright-report
+*.md
+playwright.config.js
+scripts
+benchmarks
+.env*
